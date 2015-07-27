@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  resources :transactions
-  resources :invoices
-  resources :items
-  resources :merchants
-  resources :customers
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
