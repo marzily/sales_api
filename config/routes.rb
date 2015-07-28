@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      # resources :merchants, except: [:new, :edit]
-      get 'random', to: "merchants#random"
+      get '/merchants/random', to: "merchants#random"
     end
   end
 end
