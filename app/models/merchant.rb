@@ -7,7 +7,7 @@ class Merchant < ActiveRecord::Base
   def self.random
     id = rand(1..Merchant.count)
     merchant = Merchant.find(id)
-    { merchant: merchant, invoices: merchant.invoice_ids, items: merchant.item_ids }
+    # { merchant: merchant, invoices: merchant.invoice_ids, items: merchant.item_ids }
   end
 
   def invoice_ids
