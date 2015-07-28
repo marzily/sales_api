@@ -20,6 +20,7 @@ class Api::V1::MerchantsController < ApplicationController
   private
 
     def find_param
-      params.select { |key, value| key == "name" }
+      attributes = %w[id name]
+      params.select { |key, value| attributes.include?(key) }
     end
 end
