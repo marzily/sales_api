@@ -1,8 +1,7 @@
 require 'csv'
 
 namespace :seed do
-  model_objects = ["customer", "merchant", "item", "invoice", "transaction"]
-  # "invoice_item"
+  model_objects = ["customer", "merchant", "item", "invoice", "invoice_item", "transaction"]
 
   model_objects.each do |model_object|
 
@@ -10,23 +9,35 @@ namespace :seed do
     task model_object.to_sym => :environment do
 
       file_path = "./lib/assets/data/#{model_object}s.csv"
-      csv = CSV.parse(file_path, headers: true, header_converters: :symbol)
+      csv = CSV.open(file_path, headers: true, header_converters: :symbol)
       csv.each do |row|
-        eval(model_object.capitalize).create!(row.to_h)
+        if model_object == "invoice_item"
+          class_name = model_object.split("_").map(&:capitalize).join
+          eval(class_name).create!(row.to_h)
+        else
+          eval(model_object.capitalize).create!(row.to_h)
+        end
       end
+      csv.close
     end
 
   end
 
-  # desc "Read all data from CSV to db"
-  # task :all => :environment do
-  #   model_objects.each do |model_object|
-  #     file_path = "./lib/assets/data/#{model_object}s.csv"
-  #     csv = CSV.parse(file_path, headers: true, header_converters: :symbol)
-  #     csv.each do |row|
-  #       eval(model_object.capitalize).create!(row.to_h)
-  #     end
-  #   end
-  # end
+  desc "Read all data from CSV to db"
+  task :all => :environment do
+    model_objects.each do |model_object|
+      file_path = "./lib/assets/data/#{model_object}s.csv"
+      csv = CSV.open(file_path, headers: true, header_converters: :symbol)
+      csv.each do |row|
+        if model_object == "invoice_item"
+          class_name = model_object.split("_").map(&:capitalize).join
+          eval(class_name).create!(row.to_h)
+        else
+          eval(model_object.capitalize).create!(row.to_h)
+        end
+      end
+      csv.close
+    end
+  end
 
 end
