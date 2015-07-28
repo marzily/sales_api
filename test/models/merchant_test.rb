@@ -10,4 +10,14 @@ class MerchantTest < ActiveSupport::TestCase
     merchant = Merchant.new(name: "Klein, Rempel and Jones")
     assert merchant.valid?
   end
+
+  test "merchant has many invoices" do
+    merchant = Merchant.new(name: "Klein, Rempel and Jones")
+    assert merchant.respond_to?(:invoices)
+  end
+
+  test "merchant has many items" do
+    merchant = Merchant.new(name: "Klein, Rempel and Jones")
+    assert merchant.respond_to?(:items)
+  end
 end

@@ -15,4 +15,9 @@ class CustomerTest < ActiveSupport::TestCase
     customer = Customer.new(first_name: "Amelia", last_name: "Reynolds")
     assert customer.valid?
   end
+
+  test "customer must have invoices" do
+    customer = Customer.new(first_name: "Amelia", last_name: "Reynolds")
+    assert customer.respond_to?(:invoices)
+  end
 end
