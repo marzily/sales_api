@@ -20,7 +20,7 @@ class Api::V1::MerchantsController < ApplicationController
   private
 
     def find_param
-      attributes = %w[id name]
+      attributes = %w[id name created_at updated_at]
       params.select { |key, value| attributes.include?(key) }
     end
 end

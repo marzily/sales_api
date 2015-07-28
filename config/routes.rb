@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  model_objects = ["customers", "merchants", "items", "invoices", "invoice_items", "transactions"]
+  model_objects = ["customers", "merchants", "items", "invoices", "invoice_items"]
 
   model_objects.each do |model_object|
     namespace :api do
@@ -12,5 +12,5 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
 end
