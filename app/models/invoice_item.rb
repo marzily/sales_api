@@ -4,4 +4,9 @@ class InvoiceItem < ActiveRecord::Base
 
   validates :item_id, presence: true
   validates :invoice_id, presence: true
+
+  def self.random
+    id = rand(1..InvoiceItem.count)
+    InvoiceItem.find(id)
+  end
 end
