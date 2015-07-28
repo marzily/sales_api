@@ -7,4 +7,9 @@ class Item < ActiveRecord::Base
   validates :description, presence: true
   validates :unit_price, presence: true
   validates :merchant_id, presence: true
+
+  def self.random
+    id = rand(1..Item.count)
+    Item.find(id)
+  end
 end
