@@ -19,7 +19,11 @@ class CustomerTest < ActiveSupport::TestCase
     assert @customer.valid?
   end
 
-  test "customer must have invoices" do
+  test "customer has many invoices" do
     assert @customer.respond_to?(:invoices)
+  end
+
+  test "customer has many transactions" do
+    assert @customer.respond_to?(:transactions)
   end
 end

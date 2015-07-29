@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       get "/invoices/:id/customer",     to: "invoices#customer"
       get "/invoices/:id/merchant",     to: "invoices#merchant"
 
-      # invoice_items relationships
+      # invoice_item relationships
       get "/invoice_items/:id/invoice", to: "invoice_items#invoice"
       get "/invoice_items/:id/item",    to: "invoice_items#item"
 
@@ -32,8 +32,12 @@ Rails.application.routes.draw do
       get "/items/:id/invoice_items", to: "items#invoice_items"
       get "/items/:id/merchant",      to: "items#merchant"
 
-      # transactions
+      # transaction relationships
       get "/transactions/:id/invoice", to: "transactions#invoice"
+
+      # customer relationships
+      get "/customers/:id/invoices",     to: "customers#invoices"
+      get "/customers/:id/transactions", to: "customers#transactions"
     end
   end
 
