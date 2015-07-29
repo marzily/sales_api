@@ -7,14 +7,17 @@ class Merchant < ActiveRecord::Base
   def self.random
     id = rand(1..Merchant.count)
     merchant = Merchant.find(id)
-    # { merchant: merchant, invoices: merchant.invoice_ids, items: merchant.item_ids }
   end
 
-  def invoice_ids
-    invoices.map(&:id)
+  def successful_invoices
+    invoices.joins(:transactions).where("transactions.result = ?", "success")
   end
 
-  def item_ids
-    items.map(&:id)
+  def total_revenue
+    successful_invoices.inject(0) { |sum, invoice| sum += invoice.invoice_total }
+  end
+
+  def self.sorted_by_most_revenue(num)
+    all.max_by(num) { |merchant| merchant.total_revenue }
   end
 end

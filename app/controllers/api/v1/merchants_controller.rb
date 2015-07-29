@@ -27,6 +27,10 @@ class Api::V1::MerchantsController < ApplicationController
     render json: Merchant.find(params[:id]).invoices
   end
 
+  def most_revenue
+    render json: Merchant.sorted_by_most_revenue(params[:quantity].to_i)
+  end
+
   private
 
     def find_param

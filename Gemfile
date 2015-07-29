@@ -9,8 +9,10 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+
 gem 'pg'
 gem 'responders'
+gem 'simplecov', :require => false, :group => :test
 
 group :development, :test do
   gem 'byebug'
