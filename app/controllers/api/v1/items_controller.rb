@@ -19,6 +19,14 @@ class Api::V1::ItemsController < ApplicationController
     render json: Item.where(find_param)
   end
 
+  def invoice_items
+    render json: Item.find(params[:id]).invoice_items
+  end
+
+  def merchant
+    render json: Item.find(params[:id]).merchant
+  end
+
   private
 
     def find_param
