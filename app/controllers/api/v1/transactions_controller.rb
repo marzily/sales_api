@@ -19,6 +19,10 @@ class Api::V1::TransactionsController < ApplicationController
     render json: Transaction.where(find_param)
   end
 
+  def invoice
+    render json: Transaction.find(params[:id]).invoice
+  end
+
   private
 
     def find_param
