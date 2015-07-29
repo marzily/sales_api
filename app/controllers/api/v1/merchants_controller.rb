@@ -14,7 +14,7 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def find
-    respond_with Merchant.find_by(find_param)
+    render json: Merchant.find_by(find_param)
   end
 
   def find_all
