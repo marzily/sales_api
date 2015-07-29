@@ -1,26 +1,32 @@
 class Api::V1::ItemsController < ApplicationController
-  respond_to :json
-
   def random
-    respond_with Item.random
+    render json: Item.random
   end
 
   def show
-    respond_with Item.find(params[:id])
+    render json: Item.find(params[:id])
+  end
+
+  def index
+    render json: Item.all
   end
 
   def find
-    respond_with Item.find_by(find_param)
+    render json: Item.find_by(find_param)
   end
 
   def find_all
-    respond_with Item.where(find_param.keys.first => find_param.values.first)
+    render json: Item.where(find_param)
   end
 
   private
 
     def find_param
       attributes = %w[id name description unit_price merchant_id created_at updated_at]
-      params.select { |key, value| attributes.include?(key) }
+      attributes.each do |attribute|
+        if params.has_key?(attribute)
+          return { attribute.to_sym => params[attribute] }
+        end
+      end
     end
 end
