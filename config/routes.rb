@@ -3,9 +3,15 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get "/merchants/most_revenue", to: "merchants#most_revenue" #?quantity=x returns the top x merchants ranked by total revenue
 
-      # endpoints
+    # BUSINESS INTELLIGENCE
+      # merchants
+      get "/merchants/most_revenue", to: "merchants#most_revenue"
+      get "/merchants/most_items",   to: "merchants#most_items" #?quantity=x" returns the top x merchants ranked by total number of items sold
+      # get "/merchants/revenue?date=x" returns the total revenue for date x across all merchants
+      # Assume the dates provided match the format of a standard ActiveRecord timestamp.
+
+    # ENDPOINT ROUTES
       model_objects = ["customers", "merchants", "items", "invoices", "invoice_items", "transactions"]
       model_objects.each do |model_object|
         get "/#{model_object}/random",   to: "#{model_object}#random"
@@ -15,16 +21,11 @@ Rails.application.routes.draw do
         get "/#{model_object}",          to: "#{model_object}#index"
       end
 
+
+    # RELATIONSHIP ROUTES
       # merchant relationships
       get "/merchants/:id/items",    to: "merchants#items"
       get "/merchants/:id/invoices", to: "merchants#invoices"
-
-      # merchant business intelligence
-      # get "/merchants/most_revenue", to: "merchants#most_revenue" #?quantity=x returns the top x merchants ranked by total revenue
-# get "/merchants/most_items?quantity=x" returns the top x merchants ranked by total number of items sold
-# get "/merchants/revenue?date=x" returns the total revenue for date x across all merchants
-# Assume the dates provided match the format of a standard ActiveRecord timestamp.
-
 
       # invoice relationships
       get "/invoices/:id/transactions", to: "invoices#transactions"

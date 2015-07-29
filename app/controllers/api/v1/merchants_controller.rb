@@ -31,6 +31,10 @@ class Api::V1::MerchantsController < ApplicationController
     render json: Merchant.sorted_by_most_revenue(params[:quantity].to_i)
   end
 
+  def most_items
+    render json: Merchant.sorted_by_most_items(params[:quantity].to_i)
+  end
+
   private
 
     def find_param

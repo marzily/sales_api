@@ -20,4 +20,12 @@ class Merchant < ActiveRecord::Base
   def self.sorted_by_most_revenue(num)
     all.max_by(num) { |merchant| merchant.total_revenue }
   end
+
+  def total_items
+    successful_invoices.inject(0) { |sum, invoice| sum += invoice.total_num_items }
+  end
+
+  def self.sorted_by_most_items(num)
+    all.max_by(num) { |merchant| merchant.total_items }
+  end
 end
