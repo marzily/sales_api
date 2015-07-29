@@ -1,16 +1,14 @@
 class Api::V1::MerchantsController < ApplicationController
-  respond_to :json
-
   def random
-    respond_with Merchant.random
+    render json: Merchant.random
   end
 
   def show
-    respond_with Merchant.find(params[:id])
+    render json: Merchant.find(params[:id])
   end
 
   def index
-    respond_with Merchant.all
+    render json: Merchant.all
   end
 
   def find
@@ -18,15 +16,15 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def find_all
-    respond_with Merchant.where(find_param)
+    render json: Merchant.where(find_param)
   end
 
   def items
-    respond_with Merchant.find(params[:id]).items
+    render json: Merchant.find(params[:id]).items
   end
 
   def invoices
-    respond_with Merchant.find(params[:id]).invoices
+    render json: Merchant.find(params[:id]).invoices
   end
 
   private

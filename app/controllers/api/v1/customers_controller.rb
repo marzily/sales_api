@@ -1,5 +1,4 @@
 class Api::V1::CustomersController < ApplicationController
-
   def random
     render json: Customer.random
   end
