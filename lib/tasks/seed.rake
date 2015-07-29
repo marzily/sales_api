@@ -9,7 +9,7 @@ namespace :seed do
     task model_object.to_sym => :environment do
 
       file_path = "./lib/assets/data/#{model_object}s.csv"
-      csv = CSV.open(file_path, headers: true, header_converters: :symbol)
+      csv = CSV.read(file_path, headers: true, header_converters: :symbol)
       csv.each do |row|
         if model_object == "invoice_item"
           class_name = model_object.split("_").map(&:capitalize).join
@@ -18,7 +18,6 @@ namespace :seed do
           eval(model_object.capitalize).create!(row.to_h)
         end
       end
-      csv.close
     end
 
   end

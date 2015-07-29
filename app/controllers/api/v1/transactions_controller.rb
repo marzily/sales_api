@@ -9,12 +9,16 @@ class Api::V1::TransactionsController < ApplicationController
     respond_with Transaction.find(params[:id])
   end
 
+  def index
+    respond_with Transaction.all
+  end
+
   def find
-    respond_with Transaction.find_by(find_param)
+    render json: Transaction.find_by(find_param)
   end
 
   def find_all
-    respond_with Transaction.where(find_param.keys.first => find_param.values.first)
+    render json: Transaction.where(find_param.keys.first => find_param.values.first)
   end
 
   private
