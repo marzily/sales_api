@@ -8,8 +8,4 @@ class Customer < ActiveRecord::Base
     id = rand(1..Customer.count)
     Customer.find(id)
   end
-
-  def full_name
-    first_name + " " + last_name
-  end
 end
