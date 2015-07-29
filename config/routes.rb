@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         get "/#{model_object}/find", to: "#{model_object}#find"
         get "/#{model_object}/find_all", to: "#{model_object}#find_all"
         get "/#{model_object}/:id", to: "#{model_object}#show"
+        get "/#{model_object}", to: "#{model_object}#index"
       end
 
       get "/merchants/:id/items", to: "merchants#items"
