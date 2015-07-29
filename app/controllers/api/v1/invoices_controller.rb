@@ -1,30 +1,32 @@
 class Api::V1::InvoicesController < ApplicationController
-  respond_to :json
-
   def random
-    respond_with Invoice.random
+    render json: Invoice.random
   end
 
   def show
-    respond_with Invoice.find(params[:id])
+    render json: Invoice.find(params[:id])
   end
 
   def index
-    respond_with Invoice.all
+    render json: Invoice.all
   end
 
   def find
-    respond_with Invoice.find_by(find_param)
+    render json: Invoice.find_by(find_param)
   end
 
   def find_all
-    respond_with Invoice.where(find_param.keys.first => find_param.values.first)
+    render json: Invoice.where(find_param)
   end
 
   private
 
     def find_param
       attributes = %w[id customer_id merchant_id status created_at updated_at]
-      params.select { |key, value| attributes.include?(key) }
+      attributes.each do |attribute|
+        if params.has_key?(attribute)
+          return { attribute.to_sym => params[attribute] }
+        end
+      end
     end
 end
