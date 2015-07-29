@@ -16,7 +16,7 @@ class ItemTest < ActiveSupport::TestCase
     refute item.valid?
   end
 
-  test "item belong to a merchant" do
+  test "item belongs to a merchant" do
     item = Item.new(name: "frisbee", description: "pink", unit_price: 1, merchant_id: nil)
     assert item.respond_to?(:merchant)
     refute item.valid?
