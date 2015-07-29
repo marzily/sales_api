@@ -9,6 +9,10 @@ class Api::V1::InvoicesController < ApplicationController
     respond_with Invoice.find(params[:id])
   end
 
+  def index
+    respond_with Invoice.all
+  end
+
   def find
     respond_with Invoice.find_by(find_param)
   end
