@@ -9,11 +9,15 @@ class Invoice < ActiveRecord::Base
   validates :merchant_id, presence: true
   validates :status, presence: true
 
-  # scope :successful, -> { joins(:transactions).where("transactions.result = ?", "success") }
-
   def self.random
     id = rand(1..Invoice.count)
     Invoice.find(id)
+  end
+
+  def self.successful_on_date(date)
+    joins(:transactions)
+    .where("transactions.result = ?", "success")
+    .where(updated_at: date)
   end
 
   def invoice_total

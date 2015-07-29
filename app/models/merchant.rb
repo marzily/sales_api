@@ -28,4 +28,10 @@ class Merchant < ActiveRecord::Base
   def self.sorted_by_most_items(num)
     all.max_by(num) { |merchant| merchant.total_items }
   end
+
+  def self.revenue_on_date(date)
+    Invoice
+    merchants.map
+    #?date=x" returns the total revenue for date x across all merchants
+  end
 end

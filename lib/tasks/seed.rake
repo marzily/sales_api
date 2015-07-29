@@ -9,11 +9,13 @@ namespace :seed do
     task model_object.to_sym => :environment do
 
       file_path = "./lib/assets/data/#{model_object}s.csv"
-      csv = CSV.read(file_path, headers: true, header_converters: :symbol)
+      csv = CSV.read(file_path, headers: true)
       csv.each do |row|
         if model_object == "invoice_item"
           class_name = model_object.split("_").map(&:capitalize).join
           eval(class_name).create!(row.to_h)
+        elsif model_object == "transaction"
+          eval(model_object.capitalize).create!(row.to_h.except("credit_card_expiration_date"))
         else
           eval(model_object.capitalize).create!(row.to_h)
         end
@@ -26,11 +28,13 @@ namespace :seed do
   task :all => :environment do
     model_objects.each do |model_object|
       file_path = "./lib/assets/data/#{model_object}s.csv"
-      csv = CSV.open(file_path, headers: true, header_converters: :symbol)
+      csv = CSV.open(file_path, headers: true)
       csv.each do |row|
         if model_object == "invoice_item"
           class_name = model_object.split("_").map(&:capitalize).join
           eval(class_name).create!(row.to_h)
+        elsif model_object == "transaction"
+          eval(model_object.capitalize).create!(row.to_h.except("credit_card_expiration_date"))
         else
           eval(model_object.capitalize).create!(row.to_h)
         end

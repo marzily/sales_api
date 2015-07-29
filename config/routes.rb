@@ -7,8 +7,8 @@ Rails.application.routes.draw do
     # BUSINESS INTELLIGENCE
       # merchants
       get "/merchants/most_revenue", to: "merchants#most_revenue"
-      get "/merchants/most_items",   to: "merchants#most_items" #?quantity=x" returns the top x merchants ranked by total number of items sold
-      # get "/merchants/revenue?date=x" returns the total revenue for date x across all merchants
+      get "/merchants/most_items",   to: "merchants#most_items"
+      get "/merchants/revenue",      to: "merchants#revenue"#?date=x" returns the total revenue for date x across all merchants
       # Assume the dates provided match the format of a standard ActiveRecord timestamp.
 
     # ENDPOINT ROUTES
