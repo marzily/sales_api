@@ -23,7 +23,7 @@ class Merchant < ActiveRecord::Base
 
   def total_revenue(date)
     return total_revenue_in_dollars(successful_invoices) if date.nil?
-    
+
     dated_invoices = successful_invoices.where(updated_at: date)
     total_revenue_in_dollars(dated_invoices)
   end

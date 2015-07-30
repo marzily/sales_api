@@ -12,11 +12,11 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def find
-    render json: Transaction.find_by(find_param)
+    render json: Transaction.find_by(find_param(ATTRIBUTES))
   end
 
   def find_all
-    render json: Transaction.where(find_param)
+    render json: Transaction.where(find_param(ATTRIBUTES))
   end
 
   def invoice
@@ -24,13 +24,5 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   private
-
-    def find_param
-      attributes = %w[id invoice_id credit_card_number result created_at updated_at]
-      attributes.each do |attribute|
-        if params.has_key?(attribute)
-          return { attribute.to_sym => params[attribute] }
-        end
-      end
-    end
+    ATTRIBUTES = %w[id invoice_id credit_card_number result created_at updated_at]
 end

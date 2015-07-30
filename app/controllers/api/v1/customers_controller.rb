@@ -16,11 +16,11 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def find
-    render json: Customer.find_by(find_param)
+    render json: Customer.find_by(formatted_params)
   end
 
   def find_all
-    render json: Customer.where(find_param)
+    render json: Customer.where(formatted_params)
   end
 
   def invoices
@@ -36,22 +36,14 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   private
+    ATTRIBUTES = %w[id first_name last_name created_at updated_at name]
 
-    def find_param
-      params.has_key?("name") ? full_name : keys_to_sym
+    def formatted_params
+      params.has_key?("name") ? full_name : find_param(ATTRIBUTES)
     end
 
     def full_name
       full_name = params["name"].split(" ")
       [:first_name, :last_name].zip(full_name).to_h
-    end
-
-    def keys_to_sym
-      attributes = %w[id first_name last_name created_at updated_at name]
-      attributes.each do |attribute|
-        if params.has_key?(attribute)
-          return { attribute.to_sym => params[attribute] }
-        end
-      end
     end
 end

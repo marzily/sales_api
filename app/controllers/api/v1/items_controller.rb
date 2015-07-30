@@ -12,11 +12,11 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def find
-    render json: Item.find_by(find_param)
+    render json: Item.find_by(find_param(ATTRIBUTES))
   end
 
   def find_all
-    render json: Item.where(find_param)
+    render json: Item.where(find_param(ATTRIBUTES))
   end
 
   def invoice_items
@@ -28,11 +28,11 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def most_revenue
-    render json: Item.sort_by_most_revenue(params[:quantity].to_i)
+    render json: Item.sort_by_most_revenue(params[:quantity])
   end
 
   def most_items
-    render json: Item.sort_by_most_items(params[:quantity].to_i)
+    render json: Item.sort_by_most_items(params[:quantity])
   end
 
   def best_day
@@ -40,13 +40,5 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   private
-
-    def find_param
-      attributes = %w[id name description unit_price merchant_id created_at updated_at]
-      attributes.each do |attribute|
-        if params.has_key?(attribute)
-          return { attribute.to_sym => params[attribute] }
-        end
-      end
-    end
+    ATTRIBUTES = %w[id name description unit_price merchant_id created_at updated_at]
 end

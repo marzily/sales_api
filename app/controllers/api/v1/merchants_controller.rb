@@ -12,11 +12,11 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def find
-    render json: Merchant.find_by(find_param)
+    render json: Merchant.find_by(find_param(ATTRIBUTES))
   end
 
   def find_all
-    render json: Merchant.where(find_param)
+    render json: Merchant.where(find_param(ATTRIBUTES))
   end
 
   def items
@@ -52,13 +52,5 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   private
-
-    def find_param
-      attributes = %w[id name created_at updated_at]
-      attributes.each do |attribute|
-        if params.has_key?(attribute)
-          return { attribute.to_sym => params[attribute] }
-        end
-      end
-    end
+    ATTRIBUTES = %w[id name created_at updated_at]
 end

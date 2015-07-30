@@ -25,11 +25,11 @@ class Item < ActiveRecord::Base
   end
 
   def self.sort_by_most_revenue(num)
-    all.max_by(num) { |item| item.successfully_sold_quantity * item.unit_price }
+    all.max_by(num.to_i) { |item| item.successfully_sold_quantity * item.unit_price }
   end
 
   def self.sort_by_most_items(num)
-    all.max_by(num) { |item| item.successfully_sold_quantity }
+    all.max_by(num.to_i) { |item| item.successfully_sold_quantity }
   end
 
   def best_day
