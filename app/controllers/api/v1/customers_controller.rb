@@ -1,4 +1,8 @@
 class Api::V1::CustomersController < ApplicationController
+  def home
+    render json: "Welcome to Rales Engine!"
+  end
+
   def random
     render json: Customer.random
   end

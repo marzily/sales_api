@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "api/v1/merchants#random"
+  root "api/v1/customers#home"
 
   namespace :api do
     namespace :v1 do
