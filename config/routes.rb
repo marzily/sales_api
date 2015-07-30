@@ -10,6 +10,11 @@ Rails.application.routes.draw do
       get "/merchants/most_items",   to: "merchants#most_items"
       # get "/merchants/revenue",      to: "merchants#revenue"#?date=x" returns the total revenue for date x across all merchants
 
+      # items
+      get "/items/most_revenue", to: "items#most_revenue"
+      # get "/items/most_items?quantity=x" returns the top x item instances ranked by total number sold
+      # get "/items/:id/best_day" returns the date with the most sales for the given item using the invoice date
+
     # ENDPOINT ROUTES
       model_objects = ["customers", "merchants", "items", "invoices", "invoice_items", "transactions"]
       model_objects.each do |model_object|

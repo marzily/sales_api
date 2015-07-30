@@ -21,12 +21,10 @@ class Invoice < ActiveRecord::Base
   # end
 
   def invoice_total
-    invoice_items.inject(0) do |total, invoice_item|
-      total += (invoice_item.quantity * invoice_item.unit_price)
-    end
+    invoice_items.sum("quantity * unit_price")
   end
 
   def total_num_items
-    invoice_items.inject(0) { |sum, invoice_item| sum += invoice_item.quantity }
+    invoice_items.sum("quantity")
   end
 end

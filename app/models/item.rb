@@ -14,4 +14,8 @@ class Item < ActiveRecord::Base
     id = rand(1..Item.count)
     Item.find(id)
   end
+
+  def self.most_revenue
+    invoice_items.sum("quantity * unit_price")
+  end
 end

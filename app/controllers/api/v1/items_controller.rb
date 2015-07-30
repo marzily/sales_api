@@ -27,6 +27,10 @@ class Api::V1::ItemsController < ApplicationController
     render json: Item.find(params[:id]).merchant
   end
 
+  def most_revenue
+  #  returns the top x items ranked by total revenue generated
+  end
+
   private
 
     def find_param
