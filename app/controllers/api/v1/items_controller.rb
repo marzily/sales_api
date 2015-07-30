@@ -36,6 +36,10 @@ class Api::V1::ItemsController < ApplicationController
     #  ?quantity=x returns the top x item instances ranked by total number sold
   end
 
+  def best_day
+   render json: Item.find(params[:id]).best_day
+  end
+
   private
 
     def find_param

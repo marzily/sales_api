@@ -35,4 +35,11 @@ class Item < ActiveRecord::Base
     #  ?quantity=x returns the top x item instances ranked by total number sold
     # first result is same but rest change
   end
+
+  def self.best_day
+    successful_invoices.group_by { |invoice| invoice.updated_at }
+    # check invoice items
+    # group
+    # returns the date with the most sales for the given item using the invoice date
+  end
 end

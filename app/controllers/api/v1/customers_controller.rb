@@ -27,6 +27,10 @@ class Api::V1::CustomersController < ApplicationController
     render json: Customer.find(params[:id]).transactions
   end
 
+  def favorite_merchant
+    render json: Customer.find(params[:id]).favorite_merchant
+  end
+
   private
 
     def find_param
