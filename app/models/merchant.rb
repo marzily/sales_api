@@ -17,18 +17,15 @@ class Merchant < ActiveRecord::Base
     invoices.where(status: "pending")
   end
 
-  def total_revenue_in_cents(invoices)
-    invoices.inject(0) { |sum, invoice| sum += invoice.invoice_total }
+  def total_revenue_in_dollars(invoices)
+    invoices.inject(0) { |sum, invoice| sum += invoice.invoice_total } / 100.00
   end
 
   def total_revenue(date)
-    if date.nil?
-      total = total_revenue_in_cents(successful_invoices)
-    else
-      dated_invoices = successful_invoices.where(updated_at: date)
-      total = total_revenue_in_cents(dated_invoices)
-    end
-    total / 100.00
+    return total_revenue_in_dollars(successful_invoices) if date.nil?
+    
+    dated_invoices = successful_invoices.where(updated_at: date)
+    total_revenue_in_dollars(dated_invoices)
   end
 
   def self.sorted_by_most_revenue(num)
