@@ -36,7 +36,7 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def revenue
-    #?date=x" returns the total revenue for date x across all merchants
+    
   end
 
   def single_total_revenue

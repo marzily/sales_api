@@ -33,7 +33,6 @@ class Api::V1::ItemsController < ApplicationController
 
   def most_items
     render json: Item.sort_by_most_items(params[:quantity].to_i)
-    #  ?quantity=x returns the top x item instances ranked by total number sold
   end
 
   def best_day

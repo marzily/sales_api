@@ -5,8 +5,6 @@ class Transaction < ActiveRecord::Base
   validates :credit_card_number, presence: true
   validates :result, presence: true
 
-  # scope :all_successful, -> { where(result: "success") }
-
   def self.random
     id = rand(1..Transaction.count)
     Transaction.find(id)

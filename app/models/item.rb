@@ -1,5 +1,4 @@
 class Item < ActiveRecord::Base
-  # default_scope { where(updated_at: Time.now) }
 
   belongs_to :merchant
   has_many :invoice_items
@@ -27,20 +26,14 @@ class Item < ActiveRecord::Base
 
   def self.sort_by_most_revenue(num)
     all.max_by(num) { |item| item.successfully_sold_quantity * item.unit_price }
-    # first result is same but rest change
   end
 
   def self.sort_by_most_items(num)
     all.max_by(num) { |item| item.successfully_sold_quantity }
-    #  ?quantity=x returns the top x item instances ranked by total number sold
-    # first result is same but rest change
   end
 
   def best_day
     grouped_invoices = successful_invoices.group_by { |invoice| invoice.updated_at.to_date }
     grouped_invoices.max_by { |date, invoices| invoices.count }.first
-    # check invoice items
-    # group
-    # returns the date with the most sales for the given item using the invoice date
   end
 end
