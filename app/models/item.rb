@@ -15,7 +15,24 @@ class Item < ActiveRecord::Base
     Item.find(id)
   end
 
-  def self.most_revenue(num)
-    all.max_by(num) { |item| item.invoice_items.sum("quantity * unit_price") }
+  def successful_invoices
+    invoices.joins(:transactions).where("transactions.result = ?", "success")
+  end
+
+  def successfully_sold_quantity
+    successful_invoices.flat_map do |successful_invoice|
+      successful_invoice.invoice_items.select { |invoice_item| invoice_item.item_id == id }
+    end.count
+  end
+
+  def self.sort_by_most_revenue(num)
+    all.max_by(num) { |item| item.successfully_sold_quantity * item.unit_price }
+    # first result is same but rest change
+  end
+
+  def self.sort_by_most_items(num)
+    all.max_by(num) { |item| item.successfully_sold_quantity }
+    #  ?quantity=x returns the top x item instances ranked by total number sold
+    # first result is same but rest change
   end
 end

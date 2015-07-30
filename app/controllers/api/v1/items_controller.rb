@@ -28,7 +28,12 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def most_revenue
-    render json: Item.most_revenue(params[:quantity].to_i)
+    render json: Item.sort_by_most_revenue(params[:quantity].to_i)
+  end
+
+  def most_items
+    render json: Item.sort_by_most_items(params[:quantity].to_i)
+    #  ?quantity=x returns the top x item instances ranked by total number sold
   end
 
   private

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
       # items
       get "/items/most_revenue", to: "items#most_revenue"
-      # get "/items/most_items?quantity=x" returns the top x item instances ranked by total number sold
+      get "/items/most_items",   to: "items#most_items"
       # get "/items/:id/best_day" returns the date with the most sales for the given item using the invoice date
 
     # ENDPOINT ROUTES
