@@ -36,8 +36,9 @@ class Item < ActiveRecord::Base
     # first result is same but rest change
   end
 
-  def self.best_day
-    successful_invoices.group_by { |invoice| invoice.updated_at }
+  def best_day
+    grouped_invoices = successful_invoices.group_by { |invoice| invoice.updated_at.to_date }
+    grouped_invoices.max_by { |date, invoices| invoices.count }.first
     # check invoice items
     # group
     # returns the date with the most sales for the given item using the invoice date
