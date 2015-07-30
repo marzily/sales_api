@@ -39,6 +39,18 @@ class Api::V1::MerchantsController < ApplicationController
     #?date=x" returns the total revenue for date x across all merchants
   end
 
+  def single_total_revenue
+    render json: Merchant.find(params[:id]).total_revenue
+  end
+
+  def favorite_customer
+    render json: Merchant.find(params[:id]).favorite_customer
+  end
+
+  def customers_with_pending_invoices
+    render json: Merchant.find(params[:id]).customers_with_pending_invoices
+  end
+
   private
 
     def find_param

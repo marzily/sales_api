@@ -5,11 +5,10 @@ Rails.application.routes.draw do
     namespace :v1 do
 
     # BUSINESS INTELLIGENCE
-      # merchants
+      # all merchants
       get "/merchants/most_revenue", to: "merchants#most_revenue"
       get "/merchants/most_items",   to: "merchants#most_items"
-      get "/merchants/revenue",      to: "merchants#revenue"#?date=x" returns the total revenue for date x across all merchants
-      # Assume the dates provided match the format of a standard ActiveRecord timestamp.
+      # get "/merchants/revenue",      to: "merchants#revenue"#?date=x" returns the total revenue for date x across all merchants
 
     # ENDPOINT ROUTES
       model_objects = ["customers", "merchants", "items", "invoices", "invoice_items", "transactions"]
@@ -21,6 +20,12 @@ Rails.application.routes.draw do
         get "/#{model_object}",          to: "#{model_object}#index"
       end
 
+    # BUSINESS INTELLIGENCE
+      # a single merchant
+      get "/merchants/:id/revenue", to: "merchants#single_total_revenue"
+      # get "/merchants/:id/revenue?date=x returns the total revenue for that merchant for a specific invoice date x
+      get "/merchants/:id/favorite_customer", to: "merchants#favorite_customer"
+      get "/merchants/:id/customers_with_pending_invoices", to: "merchants#customers_with_pending_invoices"
 
     # RELATIONSHIP ROUTES
       # merchant relationships

@@ -14,11 +14,11 @@ class Invoice < ActiveRecord::Base
     Invoice.find(id)
   end
 
-  def self.successful_on_date(date)
-    joins(:transactions)
-    .where("transactions.result = ?", "success")
-    .where(updated_at: date)
-  end
+  # def self.successful_on_date(date)
+  #   joins(:transactions)
+  #   .where("transactions.result = ?", "success")
+  #   .where(updated_at: date)
+  # end
 
   def invoice_total
     invoice_items.inject(0) do |total, invoice_item|
