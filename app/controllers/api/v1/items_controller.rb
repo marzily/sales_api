@@ -28,7 +28,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def most_revenue
-  #  returns the top x items ranked by total revenue generated
+    render json: Item.most_revenue(params[:quantity].to_i)
   end
 
   private

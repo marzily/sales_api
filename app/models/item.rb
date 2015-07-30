@@ -15,7 +15,7 @@ class Item < ActiveRecord::Base
     Item.find(id)
   end
 
-  def self.most_revenue
-    invoice_items.sum("quantity * unit_price")
+  def self.most_revenue(num)
+    all.max_by(num) { |item| item.invoice_items.sum("quantity * unit_price") }
   end
 end
