@@ -36,11 +36,11 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def revenue
-    
+
   end
 
   def single_total_revenue
-    render json: Merchant.find(params[:id]).total_revenue
+    render json: Merchant.find(params[:id]).total_revenue(params[:date])
   end
 
   def favorite_customer

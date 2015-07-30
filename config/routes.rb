@@ -29,7 +29,6 @@ Rails.application.routes.draw do
     # BUSINESS INTELLIGENCE
       # a single merchant
       get "/merchants/:id/revenue", to: "merchants#single_total_revenue"
-      # get "/merchants/:id/revenue?date=x returns the total revenue for that merchant for a specific invoice date x
       get "/merchants/:id/favorite_customer", to: "merchants#favorite_customer"
       get "/merchants/:id/customers_with_pending_invoices", to: "merchants#customers_with_pending_invoices"
 
