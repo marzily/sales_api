@@ -1,34 +1,45 @@
 # rales_engine
 https://radiant-plateau-5764.herokuapp.com
 
-You haven't forgotten about your old friend SalesEngine, have you? That's ok if you have, since this project will re-acquaint you!
+This project used Rails and ActiveRecord to build a JSON API.
 
-In this project, we'll use Rails and ActiveRecord to build a JSON API which exposes the SalesEngine data schema.
 
-Base Expectations - API Design
+## API Design
 
-All endpoints will expect to return JSON data
-All endpoints should be exposed under an api and version (v1) namespace (e.g. /api/v1/merchants.json)
-JSON responses should included ids only for associated records unless otherwise indicated (that is, don't embed the whole record, just the id)
-Base Expectations - Schema and Data Importing
+* All endpoints return JSON data
+* All endpoints are exposed under an api and version (v1) namespace (e.g. /api/v1/merchants.json)
 
-You will create an ActiveRecord model for each entity included in the sales engine data.
-Your application should include a rake task which ingests all of the CSV's and creates the appropriate records
-Base Expectations - Endpoints
 
-Searching
+## Schema and Data Importing
 
-For your merchants, invoices, items, invoice items, and customers you need to build the search functionality defined below. /merchants/ has been used as an example, but assume it applies to /invoices/, /items/, etc.
+* ActiveRecord models exist for each entity included in the sales engine data
+* Application includes a rake task which ingests all of the CSV's and creates the appropriate records
+
+### Data Object Models:
+
+* Merchants
+* Invoices
+* Items
+* Invoice Items
+* Customers
+
+
+## Endpoints
+
+### Searching
+
+All data objects have the search functionality defined below.
+Merchants has been used as an example.
 
 Random
 
-api/v1/merchants/random.json returns a random merchant.
+``/api/v1/merchants/random.json`` - returns a random merchant
 
 Show Record
 
-Each data category should include a show action which renders a JSON representation of the appropriate record:
+/api/v1/merchants/(:id).json - renders a JSON representation of the appropriate record based on the id number entered at (:id)
 
-GET /api/v1/merchants/1.json
+
 
 Single Finders
 
