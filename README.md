@@ -34,6 +34,7 @@ Merchants has been used as an example.
 Random
 
 ``/api/v1/merchants/random.json``
+
 Returns a random merchant
 
 Show Record
