@@ -1,5 +1,5 @@
 # rales_engine
-https://radiant-plateau-5764.herokuapp.com
+http://rales-engine-m.herokuapp.com/
 
 This project used Rails and ActiveRecord to build a JSON API.
 
@@ -33,22 +33,31 @@ Merchants has been used as an example.
 
 Random
 
-``/api/v1/merchants/random.json`` - returns a random merchant
+``/api/v1/merchants/random.json``
+Returns a random merchant
 
 Show Record
 
-/api/v1/merchants/(:id).json - renders a JSON representation of the appropriate record based on the id number entered at (:id)
-
-
+``/api/v1/merchants/(:id).json``
+Renders a JSON representation of the appropriate record based on the ID number entered at (:id)
 
 Single Finders
 
-Each data category should offer find finders to return a single object representation like this:
+Each data category offers finders to return a single object representation:
 
-GET /api/v1/merchants/find?id=12
-Which would find the one merchant with ID 12. The finder should work with any of the attributes defined on the data type and always be case insensitive. For example:
+``/api/v1/merchants/find?id=(:id)``
+Returns one merchant with the associated ID number entered at (:id). The ID search parameter can be replaced with any of the attributes defined on the data type and is case insensitive.
 
-GET /api/v1/merchants/find?name=Schroeder-Jerde
+Attributes for each data object:
+
+``Merchants:
+  /api/v1/merchants/find?name=(:name)
+
+  ``
+
+
+
+
 Multi-Finders
 
 Each category should offer find_all finders like this:
