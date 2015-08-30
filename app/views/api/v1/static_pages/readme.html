@@ -20,7 +20,7 @@ Code Base: <a href="https://github.com/aoili/rales_engine">https://github.com/ao
   <li>Application includes custom built rake tasks which import CSV data and create the appropriate records.</li>
 </ul>
 
-<table style="margin-left: 100px">
+<table>
   <tr>
     <td><em>rake seed:all</em></td>
     <td># Read all data from CSV to db</td>
@@ -57,255 +57,262 @@ Code Base: <a href="https://github.com/aoili/rales_engine">https://github.com/ao
 <hr>
 <p>All data objects have the search functionality defined below. Merchants has been used as an example.</p>
 
+<div class="data-obj">
+  <h3>Random</h3>
 
-<h3>Random</h3>
+  <p>Return a random merchant:</p>
 
-<p>Return a random merchant:</p>
+  <em>/api/v1/merchants/random.json</em>
+  <br>
+  <br>
+  <h3>Show Record</h3>
 
-<em>/api/v1/merchants/random.json</em>
-<br>
-<br>
-<h3>Show Record</h3>
+  <p>Render a JSON representation of the appropriate record based on the ID number entered at (:id):</p>
 
-<p>Render a JSON representation of the appropriate record based on the ID number entered at (:id):</p>
+  <em>/api/v1/merchants/(:id).json</em>
 
-<em>/api/v1/merchants/(:id).json</em>
+  <h3>Single Finders</h3>
 
-<h3>Single Finders</h3>
+  <p>Each data category offers finders to return data for a single object by querying one of its attributes. Search parameters are case insensitive. Paths are defined below:</p>
+  <br>
+  <strong>Customers:</strong>
+    <br>
+    <br>
+    <em>/api/v1/customers/find?id=(:id)</em>
+    <br>
+    <em>/api/v1/customers/find?first_name=(:first_name)</em>
+    <br>
+    <em>/api/v1/customers/find?last_name=(:last_name)</em>
+    <br>
+    <em>/api/v1/customers/find?created_at=(:created_at)</em>
+    <br>
+    <em>/api/v1/customers/find?updated_at=(:updated_at)</em>
+    <br>
+    <br>
 
-<p>Each data category offers finders to return data for a single object by querying one of its attributes. Search parameters are case insensitive. Paths are defined below:</p>
+  <strong>Invoices:</strong>
+    <br>
+    <br>
+    <em>/api/v1/invoices/find?id=(:id)</em>
+    <br>
+    <em>/api/v1/invoices/find?customer_id=(:customer_id)</em>
+    <br>
+    <em>/api/v1/invoices/find?merchant_id=(:merchant_id)</em>
+    <br>
+    <em>/api/v1/invoices/find?status=(:status)</em>
+    <br>
+    <em>/api/v1/invoices/find?created_at=(:created_at)</em>
+    <br>
+    <em>/api/v1/invoices/find?updated_at=(:updated_at)</em>
+    <br>
+    <br>
 
-<strong>Customers:</strong>
-  <br>
-  <br>
-  <em>/api/v1/customers/find?id=(:id)</em>
-  <br>
-  <em>/api/v1/customers/find?first_name=(:first_name)</em>
-  <br>
-  <em>/api/v1/customers/find?last_name=(:last_name)</em>
-  <br>
-  <em>/api/v1/customers/find?created_at=(:created_at)</em>
-  <br>
-  <em>/api/v1/customers/find?updated_at=(:updated_at)</em>
-  <br>
-  <br>
+  <strong>Invoice Items:</strong>
+    <br>
+    <br>
+    <em>/api/v1/invoice_items/find?id=(:id)</em>
+    <br>
+    <em>/api/v1/invoice_items/find?item_id=(:item_id)</em>
+    <br>
+    <em>/api/v1/invoice_items/find?invoice_id=(:invoice_id)</em>
+    <br>
+    <em>/api/v1/invoice_items/find?quantity=(:quantity)</em>
+    <br>
+    <em>/api/v1/invoice_items/find?unit_price=(:unit_price)</em>
+    <br>
+    <em>/api/v1/invoice_items/find?created_at=(:created_at)</em>
+    <br>
+    <em>/api/v1/invoice_items/find?updated_at=(:updated_at)</em>
+    <br>
+    <br>
 
-<strong>Invoices:</strong>
-  <br>
-  <br>
-  <em>/api/v1/invoices/find?id=(:id)</em>
-  <br>
-  <em>/api/v1/invoices/find?customer_id=(:customer_id)</em>
-  <br>
-  <em>/api/v1/invoices/find?merchant_id=(:merchant_id)</em>
-  <br>
-  <em>/api/v1/invoices/find?status=(:status)</em>
-  <br>
-  <em>/api/v1/invoices/find?created_at=(:created_at)</em>
-  <br>
-  <em>/api/v1/invoices/find?updated_at=(:updated_at)</em>
-  <br>
-  <br>
+  <strong>Items:</strong>
+    <br>
+    <br>
+    <em>/api/v1/items/find?id=(:id)</em>
+    <br>
+    <em>/api/v1/items/find?name=(:name)</em>
+    <br>
+    <em>/api/v1/items/find?description=(:description)</em>
+    <br>
+    <em>/api/v1/items/find?merchant_id=(:merchant_id)</em>
+    <br>
+    <em>/api/v1/items/find?unit_price=(:unit_price)</em>
+    <br>
+    <em>/api/v1/items/find?created_at=(:created_at)</em>
+    <br>
+    <em>/api/v1/items/find?updated_at=(:updated_at)</em>
+    <br>
+    <br>
 
-<strong>Invoice Items:</strong>
-  <br>
-  <br>
-  <em>/api/v1/invoice_items/find?id=(:id)</em>
-  <br>
-  <em>/api/v1/invoice_items/find?item_id=(:item_id)</em>
-  <br>
-  <em>/api/v1/invoice_items/find?invoice_id=(:invoice_id)</em>
-  <br>
-  <em>/api/v1/invoice_items/find?quantity=(:quantity)</em>
-  <br>
-  <em>/api/v1/invoice_items/find?unit_price=(:unit_price)</em>
-  <br>
-  <em>/api/v1/invoice_items/find?created_at=(:created_at)</em>
-  <br>
-  <em>/api/v1/invoice_items/find?updated_at=(:updated_at)</em>
-  <br>
-  <br>
+  <strong>Merchants:</strong>
+    <br>
+    <br>
+    <em>/api/v1/merchants/find?id=(:id)</em>
+    <br>
+    <em>/api/v1/merchants/find?name=(:name)</em>
+    <br>
+    <em>/api/v1/merchants/find?created_at=(:created_at)</em>
+    <br>
+    <em>/api/v1/merchants/find?updated_at=(:updated_at)</em>
+    <br>
+    <br>
 
-<strong>Items:</strong>
-  <br>
-  <br>
-  <em>/api/v1/items/find?id=(:id)</em>
-  <br>
-  <em>/api/v1/items/find?name=(:name)</em>
-  <br>
-  <em>/api/v1/items/find?description=(:description)</em>
-  <br>
-  <em>/api/v1/items/find?merchant_id=(:merchant_id)</em>
-  <br>
-  <em>/api/v1/items/find?unit_price=(:unit_price)</em>
-  <br>
-  <em>/api/v1/items/find?created_at=(:created_at)</em>
-  <br>
-  <em>/api/v1/items/find?updated_at=(:updated_at)</em>
-  <br>
-  <br>
+  <strong>Transactions:</strong>
+    <br>
+    <br>
+    <em>/api/v1/transactions/find?id=(:id)</em>
+    <br>
+    <em>/api/v1/transactions/find?invoice_id=(:invoice_id)</em>
+    <br>
+    <em>/api/v1/transactions/find?credit_card_number=(:credit_card_number)</em>
+    <br>
+    <em>/api/v1/transactions/find?result=(:result)</em>
+    <br>
+    <em>/api/v1/transactions/find?created_at=(:created_at)</em>
+    <br>
+    <em>/api/v1/transactions/find?updated_at=(:updated_at)</em>
+    <br>
+    <br>
 
-<strong>Merchants:</strong>
-  <br>
-  <br>
-  <em>/api/v1/merchants/find?id=(:id)</em>
-  <br>
-  <em>/api/v1/merchants/find?name=(:name)</em>
-  <br>
-  <em>/api/v1/merchants/find?created_at=(:created_at)</em>
-  <br>
-  <em>/api/v1/merchants/find?updated_at=(:updated_at)</em>
-  <br>
-  <br>
+  <h3>Multi-Finders</h3>
 
-<strong>Transactions:</strong>
-  <br>
-  <br>
-  <em>/api/v1/transactions/find?id=(:id)</em>
-  <br>
-  <em>/api/v1/transactions/find?invoice_id=(:invoice_id)</em>
-  <br>
-  <em>/api/v1/transactions/find?credit_card_number=(:credit_card_number)</em>
-  <br>
-  <em>/api/v1/transactions/find?result=(:result)</em>
-  <br>
-  <em>/api/v1/transactions/find?created_at=(:created_at)</em>
-  <br>
-  <em>/api/v1/transactions/find?updated_at=(:updated_at)</em>
-  <br>
-  <br>
+  <p>Each data category offers finders to return all objects matching the same search parameters as above. For example, the path below returns all merchants with the associated name entered at (:name).</p>
 
-<h3>Multi-Finders</h3>
+  <em>/api/v1/merchants/find_all?name=(:name)</em>
 
-<p>Each data category offers finders to return all objects matching the same search parameters as above. For example, the path below returns all merchants with the associated name entered at (:name).</p>
-
-<em>/api/v1/merchants/find_all?name=(:name)</em>
-
-<p>The "name" search parameter can be replaced with any of the attributes defined on the data type and accepts parameters as outlined above.</p>
+  <p>The "name" search parameter can be replaced with any of the attributes defined on the data type and accepts parameters as outlined above.</p>
+</div>
 <br>
 <br>
 
 <h2>Relationships</h2>
+<hr>
 
 <p>Data collections associated with an individual data object can be requested via nested queries as outlined below. The data object is identified by its ID number at (:id).</p>
 
-<h3>Customers</h3>
+<div class="relationships">
+  <h3>Customers</h3>
 
-<p>Data collections associated with individual customers can be accessed via the following paths:</p>
+  <p>Data collections associated with individual customers can be accessed via the following paths:</p>
 
-<em>/api/v1/customers/(:id)/invoices</em>
+  <em>/api/v1/customers/(:id)/invoices</em>
+  <br>
+  <em>/api/v1/customers/(:id)/transactions</em>
+  <br>
+
+
+  <h3>Invoices</h3>
+
+  <p>Data collections associated with individual invoices can be accessed via the following paths:</p>
+
+  <em>/api/v1/invoices/(:id)/transactions</em>
+  <br>
+  <em>/api/v1/invoices/(:id)/invoice_items</em>
+  <br>
+  <em>/api/v1/invoices/(:id)/items</em>
+  <br>
+  <em>/api/v1/invoices/(:id)/customer</em>
+  <br>
+  <em>/api/v1/invoices/(:id)/merchant</em>
+  <br>
+
+  <h3>Invoice Items</h3>
+
+  <p>Data collections associated with individual invoice items can be accessed via the following paths:</p>
+
+  <em>/api/v1/invoice_items/(:id)/invoice</em>
+  <br>
+  <em>/api/v1/invoice_items/(:id)/item</em>
+  <br>
+
+
+  <h3>Items</h3>
+
+  <p>Data collections associated with individual items can be accessed via the following paths:</p>
+
+  <em>/api/v1/items/(:id)/invoice_items</em>
+  <br>
+  <em>/api/v1/items/(:id)/merchant</em>
+  <br>
+
+  <h3>Merchants</h3>
+
+  <p>Data collections associated with individual merchants can be accessed via the following paths:</p>
+
+  <em>/api/v1/merchants/(:id)/items</em>
+  </br>
+  <em>/api/v1/merchants/(:id)/invoices</em>
+  </br>
+
+  <h3>Transactions</h3>
+
+  <p>Data collections associated with individual transactions can be accessed via the following paths:</p>
+
+  <em>/api/v1/transactions/(:id)/invoice</em>
+</div>
 <br>
-<em>/api/v1/customers/(:id)/transactions</em>
-<br>
-
-
-<h3>Invoices</h3>
-
-<p>Data collections associated with individual invoices can be accessed via the following paths:</p>
-
-<em>/api/v1/invoices/(:id)/transactions</em>
-<br>
-<em>/api/v1/invoices/(:id)/invoice_items</em>
-<br>
-<em>/api/v1/invoices/(:id)/items</em>
-<br>
-<em>/api/v1/invoices/(:id)/customer</em>
-<br>
-<em>/api/v1/invoices/(:id)/merchant</em>
-<br>
-
-<h3>Invoice Items</h3>
-
-<p>Data collections associated with individual invoice items can be accessed via the following paths:</p>
-
-<em>/api/v1/invoice_items/(:id)/invoice</em>
-<br>
-<em>/api/v1/invoice_items/(:id)/item</em>
-<br>
-
-
-<h3>Items</h3>
-
-<p>Data collections associated with individual items can be accessed via the following paths:</p>
-
-<em>/api/v1/items/(:id)/invoice_items</em>
-<br>
-<em>/api/v1/items/(:id)/merchant</em>
-<br>
-
-<h3>Merchants</h3>
-
-<p>Data collections associated with individual merchants can be accessed via the following paths:</p>
-
-<em>/api/v1/merchants/(:id)/items</em>
-</br>
-<em>/api/v1/merchants/(:id)/invoices</em>
-</br>
-
-<h3>Transactions</h3>
-
-<p>Data collections associated with individual transactions can be accessed via the following paths:</p>
-
-<em>/api/v1/transactions/(:id)/invoice</em>
 <br>
 <br>
-
 
 <h2>Business Intelligence</h2>
+<hr>
 
 <p>Business logic is available as outlined below.</p>
 
-<h3>Customers</h3>
+<div class="bus-int">
+  <h3>Customers</h3>
 
-<p>Return a merchant with whom the customer has conducted the most successful transactions. Customer is identified by ID number:</p>
+  <p>Return a merchant with whom the customer has conducted the most successful transactions. Customer is identified by ID number:</p>
+  <em>/api/v1/customers/(:id)/favorite_merchant</em>
+  <br>
+  <br>
 
-<em>/api/v1/customers/(:id)/favorite_merchant</em>
+  <h3>Items</h3>
 
-<h3>Items</h3>
+  <p>Return the top (:x) items ranked by total revenue generated:</p>
+  <em>/api/v1/items/most_revenue?quantity=(:x)</em>
 
-<p>Return the top (:x) items ranked by total revenue generated:</p>
+  <p>Return the top (:x) item instances ranked by total number sold:</p>
+  <em>/api/v1/items/most_items?quantity=(:x)</em>
 
-<em>/api/v1/items/most_revenue?quantity=(:x)</em>
+  <p>Return the date with the most sales for the given item identified by item ID:</p>
+  <em>/api/v1/items/(:id)/best_day</em>
+  <br>
+  <br>
 
-<p>Return the top (:x) item instances ranked by total number sold:</p>
+  <h3>Merchants</h3>
 
-<em>/api/v1/items/most_items?quantity=(:x)</em>
+  <h4>All Merchants</h4>
 
-<p>Return the date with the most sales for the given item identified by item ID:</p>
+  <p>Return the top (:x) merchants ranked by total revenue:</p>
 
-<em>/api/v1/items/(:id)/best_day</em>
+  <em>/api/v1/merchants/most_revenue?quantity(:x)</em>
 
-<h3>Merchants</h3>
+  <p>Returns the top (:x) merchants ranked by total number of items sold:</p>
 
-<h4>All Merchants</h4>
+  <em>/api/v1/merchants/most_items?quantity=(:x)</em>
 
-<p>Return the top (:x) merchants ranked by total revenue:</p>
+  <p>Returns the total revenue for date (:x) across all merchants. The dates provided match the format of a standard ActiveRecord timestamp:</p>
 
-<em>/api/v1/merchants/most_revenue?quantity(:x)</em>
-
-<p>Returns the top (:x) merchants ranked by total number of items sold:</p>
-
-<em>/api/v1/merchants/most_items?quantity=(:x)</em>
-
-<p>Returns the total revenue for date (:x) across all merchants. The dates provided match the format of a standard ActiveRecord timestamp:</p>
-
-<em>/api/v1/merchants/revenue?date=(:x)</em>
+  <em>/api/v1/merchants/revenue?date=(:x)</em>
 
 
-<h4>A Single Merchant</h4>
+  <h4>A Single Merchant</h4>
 
-<p>Return the total revenue for that merchant across all transactions:</p>
+  <p>Return the total revenue for that merchant across all transactions:</p>
 
-<em>/api/v1/merchants/(:id)/revenue</em>
+  <em>/api/v1/merchants/(:id)/revenue</em>
 
-<p>Return the total revenue for that merchant for a specific invoice on date (:x):</p>
+  <p>Return the total revenue for that merchant for a specific invoice on date (:x):</p>
 
-<em>/api/v1/merchants/(:id)/revenue?date=(:x)</em>
+  <em>/api/v1/merchants/(:id)/revenue?date=(:x)</em>
 
-<p>Return the customer who has conducted the most successful transactions:</p>
+  <p>Return the customer who has conducted the most successful transactions:</p>
 
-<em>/api/v1/merchants/(:id)/favorite_customer</em>
+  <em>/api/v1/merchants/(:id)/favorite_customer</em>
 
-<p>Return a collection of customers which have pending (unpaid) invoices:</p>
+  <p>Return a collection of customers which have pending (unpaid) invoices:</p>
 
-<em>/api/v1/merchants/(:id)/customers_with_pending_invoices</em>
+  <em>/api/v1/merchants/(:id)/customers_with_pending_invoices</em>
+</div>
