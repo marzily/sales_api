@@ -92,7 +92,6 @@ Merchants:
 Transactions:
   /api/v1/transactions/find?id=(:id)
   /api/v1/transactions/find?invoice_id=(:invoice_id)
-  /api/v1/transactions/find?credit_card_number=(:credit_card_number)
   /api/v1/transactions/find?result=(:result)
   /api/v1/transactions/find?created_at=(:created_at)
   /api/v1/transactions/find?updated_at=(:updated_at)

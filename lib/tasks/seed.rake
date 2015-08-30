@@ -14,8 +14,6 @@ namespace :seed do
         if model_object == "invoice_item"
           class_name = model_object.split("_").map(&:capitalize).join
           eval(class_name).create!(row.to_h)
-        elsif model_object == "transaction"
-          eval(model_object.capitalize).create!(row.to_h.except("credit_card_expiration_date"))
         else
           eval(model_object.capitalize).create!(row.to_h)
         end
@@ -33,8 +31,6 @@ namespace :seed do
         if model_object == "invoice_item"
           class_name = model_object.split("_").map(&:capitalize).join
           eval(class_name).create!(row.to_h)
-        elsif model_object == "transaction"
-          eval(model_object.capitalize).create!(row.to_h.except("credit_card_expiration_date"))
         else
           eval(model_object.capitalize).create!(row.to_h)
         end
