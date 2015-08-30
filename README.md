@@ -22,103 +22,185 @@ This project used Rails and ActiveRecord to build a JSON API.
 * Items
 * Invoice Items
 * Customers
+* Transactions
 
 
 ## Endpoints
 
-### Searching
 
 All data objects have the search functionality defined below.
 Merchants has been used as an example.
 
-Random
+### Random
 
-``/api/v1/merchants/random.json``
+`/api/v1/merchants/random.json`
 
 Returns a random merchant
 
-Show Record
+### Show Record
 
-``/api/v1/merchants/(:id).json``
+`/api/v1/merchants/(:id).json`
 Renders a JSON representation of the appropriate record based on the ID number entered at (:id)
 
-Single Finders
+### Single Finders
 
 Each data category offers finders to return a single object representation:
 
-``/api/v1/merchants/find?id=(:id)``
-Returns one merchant with the associated ID number entered at (:id). The ID search parameter can be replaced with any of the attributes defined on the data type and is case insensitive.
+`/api/v1/merchants/find?id=(:id)`
 
-Attributes for each data object:
+Returns one merchant with the associated ID number entered at (:id). The "id" search parameter can be replaced with any of the attributes defined on the data type and is case insensitive.
 
-``Merchants:
+Attributes for each data object can be accessed via the paths listed below:
+
+```
+Customers:
+  /api/v1/customers/find?id=(:id)
+  /api/v1/customers/find?first_name=(:first_name)
+  /api/v1/customers/find?last_name=(:last_name)
+  /api/v1/customers/find?created_at=(:created_at)
+  /api/v1/customers/find?updated_at=(:updated_at)
+
+Invoices:
+  /api/v1/invoices/find?id=(:id)
+  /api/v1/invoices/find?customer_id=(:customer_id)
+  /api/v1/invoices/find?merchant_id=(:merchant_id)
+  /api/v1/invoices/find?status=(:status)
+  /api/v1/invoices/find?created_at=(:created_at)
+  /api/v1/invoices/find?updated_at=(:updated_at)
+
+Invoice Items:
+  /api/v1/invoice_items/find?id=(:id)
+  /api/v1/invoice_items/find?item_id=(:item_id)
+  /api/v1/invoice_items/find?invoice_id=(:invoice_id)
+  /api/v1/invoice_items/find?quantity=(:quantity)
+  /api/v1/invoice_items/find?unit_price=(:unit_price)
+  /api/v1/invoice_items/find?created_at=(:created_at)
+  /api/v1/invoice_items/find?updated_at=(:updated_at)
+
+Items:
+  /api/v1/items/find?id=(:id)
+  /api/v1/items/find?name=(:name)
+  /api/v1/items/find?description=(:description)
+  /api/v1/items/find?merchant_id=(:merchant_id)
+  /api/v1/items/find?unit_price=(:unit_price)
+  /api/v1/items/find?created_at=(:created_at)
+  /api/v1/items/find?updated_at=(:updated_at)
+
+Merchants:
+  /api/v1/merchants/find?id=(:id)
   /api/v1/merchants/find?name=(:name)
+  /api/v1/merchants/find?created_at=(:created_at)
+  /api/v1/merchants/find?updated_at=(:updated_at)
 
-  ``
+Transactions:
+  /api/v1/transactions/find?id=(:id)
+  /api/v1/transactions/find?invoice_id=(:invoice_id)
+  /api/v1/transactions/find?credit_card_number=(:credit_card_number)
+  /api/v1/transactions/find?result=(:result)
+  /api/v1/transactions/find?created_at=(:created_at)
+  /api/v1/transactions/find?updated_at=(:updated_at)
+```
+
+### Multi-Finders
+
+Each data category offers finders to return all objects matching the same search parameters as above. For example,
+
+`/api/v1/merchants/find_all?name=(:name)`
+
+Returns all merchants with the associated name entered at (:name). The "name" search parameter can be replaced with any of the attributes defined on the data type as and accepts parameters as outlined above.
 
 
+### Relationships
+
+Data collections associated with an individual data object can be requested via nested queries as outlined below. The data object is identified by its ID number at (:id).
+
+#### Merchants
+
+Data collections associated with individual merchants can be accessed via the following paths:
+
+```
+/api/v1/merchants/(:id)/items
+/api/v1/merchants/(:id)/invoices
+```
+
+#### Invoices
+
+Data collections associated with individual invoices can be accessed via the following paths:
+
+```
+/api/v1/invoices/(:id)/transactions
+/api/v1/invoices/(:id)/invoice_items
+/api/v1/invoices/(:id)/items
+/api/v1/invoices/(:id)/customer
+/api/v1/invoices/(:id)/merchant
+```
+
+#### Invoice Items
+
+Data collections associated with individual invoice items can be accessed via the following paths:
+
+```
+/api/v1/invoice_items/(:id)/invoice
+/api/v1/invoice_items/(:id)/item
+```
+
+#### Items
+
+Data collections associated with individual items can be accessed via the following paths:
+
+```
+/api/v1/items/(:id)/invoice_items
+/api/v1/items/(:id)/merchant
+```
+
+#### Transactions
+
+Data collections associated with individual transactions can be accessed via the following paths:
+
+```
+/api/v1/transactions/(:id)/invoice
+```
+
+#### Customers
+
+Data collections associated with individual customers can be accessed via the following paths:
+
+```
+/api/v1/customers/(:id)/invoices
+/api/v1/customers/(:id)/transactions
+```
 
 
-Multi-Finders
+### Business Intelligence
 
-Each category should offer find_all finders like this:
+Business logic is available as outlined below.
 
-GET /api/v1/merchants/find_all?name=Cummings-Thiel
-Which would find all the merchants whose name matches this query. The finder should work with any of the attributes defined on the data type and always be case insensitive.
 
-Base Expectations -- Relationships
+#### Merchants
 
-In addition to the direct queries against single resources, we would like to also be able to pull relationship data from the API.
+##### All Merchants
 
-We'll expose these relationships using nested URLs, as outlined in the sections below.
+```
+Return the top (:x) merchants ranked by total revenue:
 
-Merchants
+`/api/v1/merchants/most_revenue?quantity(:x)`
 
-GET /api/v1/merchants/:id/items returns a collection of items associated with that merchant
-GET /api/v1/merchants/:id/invoices returns a collection of invoices associated with that merchant from their known orders
-Invoices
+Returns the top (:x) merchants ranked by total number of items sold:
 
-GET /api/v1/invoices/:id/transactions returns a collection of associated transactions
-GET /api/v1/invoices/:id/invoice_items returns a collection of associated invoice items
-GET /api/v1/invoices/:id/items returns a collection of associated items
-GET /api/v1/invoices/:id/customer returns the associated customer
-GET /api/v1/invoices/:id/merchant returns the associated merchant
-Invoice Items
+`/api/v1/merchants/most_items?quantity=(:x)`
 
-GET /api/v1/invoice_items/:id/invoice returns the associated invoice
-GET /api/v1/invoice_items/:id/item returns the associated item
-Items
+Returns the total revenue for date (:x) across all merchants. The dates provided match the format of a standard ActiveRecord timestamp:
 
-GET /api/v1/items/:id/invoice_items returns a collection of associated invoice items
-GET /api/v1/items/:id/merchant returns the associated merchant
-Transactions
+`/api/v1/merchants/revenue?date=(:x)`
+```
 
-GET /api/v1/transactions/:id/invoice returns the associated invoice
-Customers
 
-GET /api/v1/customers/:id/invoices returns a collection of associated invoices
-GET /api/v1/customers/:id/transactions returns a collection of associated transactions
-Base Expectations -- Business Intelligence
+##### A Single Merchant
 
-We want to maintain the original Business Intelligence functionality of SalesEngine, but this time expose the data through our API.
-
-Remember that ActiveRecord is your friend. Much of the complicated logic from your original SalesEngine can be expressed quite succinctly using ActiveRecord queries.
-
-Merchants
-
-All Merchants
-
-GET /api/v1/merchants/most_revenue?quantity=x returns the top x merchants ranked by total revenue
-GET /api/v1/merchants/most_items?quantity=x returns the top x merchants ranked by total number of items sold
-GET /api/v1/merchants/revenue?date=x returns the total revenue for date x across all merchants
-Assume the dates provided match the format of a standard ActiveRecord timestamp.
-
-A Single Merchant
-
-GET /api/v1/merchants/:id/revenue returns the total revenue for that merchant across all transactions
-GET /api/v1/merchants/:id/revenue?date=x returns the total revenue for that merchant for a specific invoice date x
-GET /api/v1/merchants/:id/favorite_customer returns the customer who has conducted the most successful transactions
-GET /api/v1/merchants/:id/customers_with_pending_invoices returns a collection of customers which have pending (unpaid) invoices
+/api/v1/merchants/:id/revenue returns the total revenue for that merchant across all transactions
+/api/v1/merchants/:id/revenue?date=x returns the total revenue for that merchant for a specific invoice date x
+/api/v1/merchants/:id/favorite_customer returns the customer who has conducted the most successful transactions
+/api/v1/merchants/:id/customers_with_pending_invoices returns a collection of customers which have pending (unpaid) invoices
 NOTE: Failed charges should never be counted in revenue totals or statistics.
 
 NOTE: All revenues should be reported as a float with two decimal places.
