@@ -1,31 +1,33 @@
 # rales_engine
-http://rales-engine-m.herokuapp.com/
+This project used Ruby on Rails and ActiveRecord to build a JSON API from imported CSV data.
 
-This project used Rails and ActiveRecord to build a JSON API.
+Code Base: https://github.com/aoili/rales_engine
 
+Production Site: http://rales-engine-m.herokuapp.com/
 
-## API Design
+##### API Design
 
-* All endpoints return JSON data
-* All endpoints are exposed under an api and version (v1) namespace (e.g. /api/v1/merchants.json)
-
-
-## Schema and Data Importing
-
-* ActiveRecord models exist for each entity included in the sales engine data
-* Application includes a rake task which ingests all of the CSV's and creates the appropriate records
-
-### Data Object Models:
-
-* Merchants
-* Invoices
-* Items
-* Invoice Items
-* Customers
-* Transactions
+* All endpoints return JSON data.
+* All endpoints are exposed under an api and version (v1) namespace (e.g. /api/v1/merchants.json).
 
 
-## Endpoints
+##### Schema and Data Importing
+
+* ActiveRecord models exist for each entity imported from CSV data. Model objects include: customers, invoices, invoice items, items, merchants, and transactions.
+* Application includes custom built rake tasks which import CSV data and create the appropriate records.
+
+```
+rake seed:all               # Read all data from CSV to db
+rake seed:customer          # Read customer data from CSV to db
+rake seed:invoice           # Read invoice data from CSV to db
+rake seed:invoice_item      # Read invoice_item data from CSV to db
+rake seed:item              # Read item data from CSV to db
+rake seed:merchant          # Read merchant data from CSV to db
+rake seed:transaction       # Read transaction data from CSV to db
+```
+
+
+## Direct Object Querying
 
 
 All data objects have the search functionality defined below.
@@ -33,24 +35,19 @@ Merchants has been used as an example.
 
 ### Random
 
-`/api/v1/merchants/random.json`
+Return a random merchant:
 
-Returns a random merchant
+`/api/v1/merchants/random.json`
 
 ### Show Record
 
+Render a JSON representation of the appropriate record based on the ID number entered at (:id):
+
 `/api/v1/merchants/(:id).json`
-Renders a JSON representation of the appropriate record based on the ID number entered at (:id)
 
 ### Single Finders
 
-Each data category offers finders to return a single object representation:
-
-`/api/v1/merchants/find?id=(:id)`
-
-Returns one merchant with the associated ID number entered at (:id). The "id" search parameter can be replaced with any of the attributes defined on the data type and is case insensitive.
-
-Attributes for each data object can be accessed via the paths listed below:
+Each data category offers finders to return data for a single object by querying one of its attributes. Search parameters are case insensitive. Paths are defined below:
 
 ```
 Customers:
@@ -103,27 +100,26 @@ Transactions:
 
 ### Multi-Finders
 
-Each data category offers finders to return all objects matching the same search parameters as above. For example,
+Each data category offers finders to return all objects matching the same search parameters as above. For example, the path below returns all merchants with the associated name entered at (:name).
 
 `/api/v1/merchants/find_all?name=(:name)`
 
-Returns all merchants with the associated name entered at (:name). The "name" search parameter can be replaced with any of the attributes defined on the data type as and accepts parameters as outlined above.
+ The "name" search parameter can be replaced with any of the attributes defined on the data type and accepts parameters as outlined above.
 
-
-### Relationships
+## Relationships
 
 Data collections associated with an individual data object can be requested via nested queries as outlined below. The data object is identified by its ID number at (:id).
 
-#### Merchants
+### Customers
 
-Data collections associated with individual merchants can be accessed via the following paths:
+Data collections associated with individual customers can be accessed via the following paths:
 
 ```
-/api/v1/merchants/(:id)/items
-/api/v1/merchants/(:id)/invoices
+/api/v1/customers/(:id)/invoices
+/api/v1/customers/(:id)/transactions
 ```
 
-#### Invoices
+### Invoices
 
 Data collections associated with individual invoices can be accessed via the following paths:
 
@@ -135,7 +131,7 @@ Data collections associated with individual invoices can be accessed via the fol
 /api/v1/invoices/(:id)/merchant
 ```
 
-#### Invoice Items
+### Invoice Items
 
 Data collections associated with individual invoice items can be accessed via the following paths:
 
@@ -144,7 +140,7 @@ Data collections associated with individual invoice items can be accessed via th
 /api/v1/invoice_items/(:id)/item
 ```
 
-#### Items
+### Items
 
 Data collections associated with individual items can be accessed via the following paths:
 
@@ -153,7 +149,16 @@ Data collections associated with individual items can be accessed via the follow
 /api/v1/items/(:id)/merchant
 ```
 
-#### Transactions
+### Merchants
+
+Data collections associated with individual merchants can be accessed via the following paths:
+
+```
+/api/v1/merchants/(:id)/items
+/api/v1/merchants/(:id)/invoices
+```
+
+### Transactions
 
 Data collections associated with individual transactions can be accessed via the following paths:
 
@@ -161,26 +166,35 @@ Data collections associated with individual transactions can be accessed via the
 /api/v1/transactions/(:id)/invoice
 ```
 
-#### Customers
 
-Data collections associated with individual customers can be accessed via the following paths:
-
-```
-/api/v1/customers/(:id)/invoices
-/api/v1/customers/(:id)/transactions
-```
-
-
-### Business Intelligence
+## Business Intelligence
 
 Business logic is available as outlined below.
 
+### Customers
 
-#### Merchants
+ Return a merchant with whom the customer has conducted the most successful transactions. Customer is identified by ID number:
 
-##### All Merchants
+`/api/v1/customers/(:id)/favorite_merchant`
 
-```
+### Items
+
+Return the top (:x) items ranked by total revenue generated:
+
+`/api/v1/items/most_revenue?quantity=(:x)`
+
+Return the top (:x) item instances ranked by total number sold:
+
+`/api/v1/items/most_items?quantity=(:x)`
+
+Return the date with the most sales for the given item identified by item ID:
+
+`/api/v1/items/(:id)/best_day`
+
+### Merchants
+
+#### All Merchants
+
 Return the top (:x) merchants ranked by total revenue:
 
 `/api/v1/merchants/most_revenue?quantity(:x)`
@@ -192,43 +206,23 @@ Returns the top (:x) merchants ranked by total number of items sold:
 Returns the total revenue for date (:x) across all merchants. The dates provided match the format of a standard ActiveRecord timestamp:
 
 `/api/v1/merchants/revenue?date=(:x)`
-```
 
 
-##### A Single Merchant
+#### A Single Merchant
 
-/api/v1/merchants/:id/revenue returns the total revenue for that merchant across all transactions
-/api/v1/merchants/:id/revenue?date=x returns the total revenue for that merchant for a specific invoice date x
-/api/v1/merchants/:id/favorite_customer returns the customer who has conducted the most successful transactions
-/api/v1/merchants/:id/customers_with_pending_invoices returns a collection of customers which have pending (unpaid) invoices
-NOTE: Failed charges should never be counted in revenue totals or statistics.
+ Return the total revenue for that merchant across all transactions:
 
-NOTE: All revenues should be reported as a float with two decimal places.
+`/api/v1/merchants/(:id)/revenue`
 
-Items
+ Return the total revenue for that merchant for a specific invoice on date (:x):
 
-GET /api/v1/items/most_revenue?quantity=x returns the top x items ranked by total revenue generated
-GET /api/v1/items/most_items?quantity=x returns the top x item instances ranked by total number sold
-GET /api/v1/items/:id/best_day returns the date with the most sales for the given item using the invoice date
-Customers
+`/api/v1/merchants/(:id)/revenue?date=(:x)`
 
-GET /api/v1/customers/:id/favorite_merchant returns a merchant where the customer has conducted the most successful transactions
-Extensions
+ Return the customer who has conducted the most successful transactions:
 
-If you complete the base extensions outlined above, consider one of the following extensions
+`/api/v1/merchants/(:id)/favorite_customer`
 
-Build a Client gem
+Return a collection of customers which have pending (unpaid) invoices:
 
-Using the gem, I should be able to interact with all of the endpoints included in the application.
-
-Additional Formats -- CSV
-
-Business people love CSV's. Specifically they love CSV's that they can import into a spreadsheet program and go to town on.
-
-For the business intelligence endpoints in the application, include an option to request the resource as a CSV.
-
-For example I might request top items with this request:
-
-GET /api/v1/items/most_revenue.csv?quantity=x
-
-Which should allow me to download the appropriate data as a CSV file.
+`/api/v1/merchants/(:id)/customers_with_pending_invoices
+`
