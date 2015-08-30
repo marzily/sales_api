@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "api/v1/customers#home"
+  root "api/v1/static_pages#home"
 
   namespace :api do
     namespace :v1 do
