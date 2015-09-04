@@ -1,4 +1,4 @@
-# rales_engine
+# Sales API
 This project used Ruby on Rails and ActiveRecord to build a JSON API from imported CSV data.
 
 Code Base: https://github.com/aoili/rales_engine
@@ -28,7 +28,6 @@ rake seed:transaction       # Read transaction data from CSV to db
 
 
 ## Direct Object Querying
-
 
 All data objects have the search functionality defined below.
 Merchants has been used as an example.
@@ -104,6 +103,7 @@ Each data category offers finders to return all objects matching the same search
 `/api/v1/merchants/find_all?name=(:name)`
 
  The "name" search parameter can be replaced with any of the attributes defined on the data type and accepts parameters as outlined above.
+
 
 ## Relationships
 
@@ -190,6 +190,7 @@ Return the date with the most sales for the given item identified by item ID:
 
 `/api/v1/items/(:id)/best_day`
 
+
 ### Merchants
 
 #### All Merchants
@@ -201,11 +202,6 @@ Return the top (:x) merchants ranked by total revenue:
 Returns the top (:x) merchants ranked by total number of items sold:
 
 `/api/v1/merchants/most_items?quantity=(:x)`
-
-Returns the total revenue for date (:x) across all merchants. The dates provided match the format of a standard ActiveRecord timestamp:
-
-`/api/v1/merchants/revenue?date=(:x)`
-
 
 #### A Single Merchant
 
