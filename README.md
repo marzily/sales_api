@@ -1,9 +1,7 @@
 # Sales API
 This project used Ruby on Rails and ActiveRecord to build a JSON API from imported CSV data.
-
-Code Base: https://github.com/aoili/rales_engine
-
-Production Site: http://rales-engine-m.herokuapp.com/
+Code Base: https://github.com/aoili/Sales-API
+Production Site: http://sales-api.herokuapp.com
 
 ##### API Design
 
