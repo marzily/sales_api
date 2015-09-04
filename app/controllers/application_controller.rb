@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   private
+  
     def find_param(attributes)
       attributes.each do |attribute|
         if params.has_key?(attribute)

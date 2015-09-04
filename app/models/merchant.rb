@@ -44,14 +44,6 @@ class Merchant < ActiveRecord::Base
     successful_invoices.where(updated_at: date)
   end
 
-  def self.revenue_on_date(date)
-    # all.map do |merchant|
-    #   merchant.successful_invoices_by_date(date)
-    # end
-    # .inject(0)
-    #?date=x" returns the total revenue for date x across all merchants
-  end
-
   def favorite_customer
     grouped_invoices = successful_invoices.group_by(&:customer_id)
     customer_id = grouped_invoices.max_by { |customer_id, invoices| invoices.count }.first

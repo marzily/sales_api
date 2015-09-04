@@ -8,7 +8,6 @@ Rails.application.routes.draw do
       # all merchants
       get "/merchants/most_revenue", to: "merchants#most_revenue"
       get "/merchants/most_items",   to: "merchants#most_items"
-      # get "/merchants/revenue",      to: "merchants#revenue"#?date=x" returns the total revenue for date x across all merchants
 
       # all items
       get "/items/most_revenue", to: "items#most_revenue"

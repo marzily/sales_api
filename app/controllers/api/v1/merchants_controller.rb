@@ -35,10 +35,6 @@ class Api::V1::MerchantsController < ApplicationController
     render json: Merchant.sorted_by_most_items(params[:quantity].to_i)
   end
 
-  def revenue
-
-  end
-
   def single_total_revenue
     render json: Merchant.find(params[:id]).total_revenue(params[:date])
   end
